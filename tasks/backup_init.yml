@@ -5,8 +5,8 @@
     mc mb --ignore-existing localminio/{{ docker_container_portainer_restic_s3_bucket_name }}     
   register: mc_mb_result
 
-- ansible.builtin.name: backup_init {{ docker_container_portainer_restic_s3_repo }}
-  debug:
+- name: backup_init {{ docker_container_portainer_restic_s3_repo }}
+  ansible.builtin.debug:
     msg: "{{ mc_mb_result.stdout }}"
 
 # using localhost here because DNS is not fully populated at this time
