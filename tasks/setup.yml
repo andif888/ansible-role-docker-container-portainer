@@ -1,0 +1,52 @@
+---
+# tasks file for ansible-role-docker-container-portainer
+
+- name: docker_image pull {{ docker_image_portainer_name }}
+  community.docker.docker_image:
+    name: '{{ docker_image_portainer_name }}'
+    source: pull
+    # Select platform for pulling. If not specified, will pull whatever docker prefers.
+    pull:
+      platform: amd64
+  when: 
+    - docker_image_portainer_pull is defined
+
+- name: docker_network {{ docker_container_portainer_name }}
+  community.docker.docker_network:
+    name: "{{ docker_network_portainer_name }}"
+    driver: "{{ docker_network_portainer_driver | default('bridge') }}"
+    attachable: "{{ docker_network_portainer_attachable | default('yes') }}"
+    enable_ipv6: "{{ docker_network_portainer_enable_ipv6 | default('no') }}"
+    internal: "{{ docker_network_portainer_internal | default('no') }}"
+    state: present
+
+
+- name: docker_container {{ docker_container_portainer_name }}
+  community.docker.docker_container:
+    name: "{{ docker_container_portainer_name }}"
+    image: "{{ docker_container_portainer_image }}"
+    state: "{{ docker_container_portainer_state | default('started') }}"
+    recreate: "{{ docker_container_portainer_recreate | default('no') }}"
+    restart: "{{ docker_container_portainer_restart | default('no') }}"
+    restart_policy: "{{ docker_container_portainer_restart_policy | default('always') }}"
+    container_default_behavior: no_defaults
+    auto_remove: "{{ docker_container_portainer_auto_remove | default('no') }}"
+    detach: "{{ docker_container_portainer_detach | default('yes') }}"
+    init: "{{ docker_container_portainer_init | default('no') }}"
+    interactive: "{{ docker_container_portainer_interactive | default('no') }}"
+    keep_volumes: "{{ docker_container_portainer_keep_volumes | default('yes') }}"
+    memory: "{{ docker_container_portainer_memory | default('0') }}"
+    paused: "{{ docker_container_portainer_paused | default('no') }}"
+    privileged: "{{ docker_container_portainer_privileged | default('no') }}"
+    read_only: "{{ docker_container_portainer_read_only | default('no') }}"
+    tty: "{{ docker_container_portainer_tty | default('no') }}"
+    env_file: "{{ docker_container_portainer_env_file | default(omit) }}"
+    env: "{{ docker_container_portainer_env | default(omit) }}"
+    volumes: "{{ docker_container_portainer_volumes | default(omit) }}"
+    labels: "{{ docker_container_portainer_labels | default(omit) }}"
+    networks_cli_compatible: "{{ docker_container_portainer_networks_cli_compatible | default('yes') }}"
+    network_mode: "{{ docker_network_portainer_name }}"
+    pull: "{{ docker_container_portainer_pull | default('no') }}"
+    purge_networks: "{{ docker_container_portainer_purge_networks | default('yes') }}"
+    networks: "{{ docker_container_portainer_networks }}"
+    published_ports: "{{ docker_container_portainer_ports | default(omit) }}"
