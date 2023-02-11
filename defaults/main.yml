@@ -9,7 +9,7 @@
 docker_image_portainer_name: "portainer/portainer-ce:latest"
 
 # @var docker_image_portainer_pull:description: Indicate to always pull the docker image.
-docker_image_portainer_pull: no
+docker_image_portainer_pull: false
 
 # ----------------
 # Docker container
