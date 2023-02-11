@@ -81,6 +81,15 @@ docker_container_portainer_networks:
 docker_container_portainer_ports:
   - "9000:9000"
 
+# @var docker_container_portainer_comparisons:description: >
+# Allows to specify how properties of existing containers are compared with module options 
+# to decide whether the container should be recreated / updated or not.
+# @end
+docker_container_portainer_comparisons:
+  image: strict
+  env: strict
+  volumes: strict
+
 # docker_container_portainer_auto_remove: no 
 # docker_container_portainer_detach: yes 
 # docker_container_portainer_env_file: "{{ docker_container_portainer_volume_dir }}/.env"
@@ -91,7 +100,6 @@ docker_container_portainer_ports:
 # docker_container_portainer_paused: no 
 # docker_container_portainer_privileged: no 
 # docker_container_portainer_pull: no
-# docker_container_portainer_purge_networks: yes 
 # docker_container_portainer_read_only: no 
 # docker_container_portainer_recreate: no
 # docker_container_portainer_restart: no
